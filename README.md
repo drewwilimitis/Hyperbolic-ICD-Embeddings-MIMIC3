@@ -1,2 +1,2 @@
-# vu-informatics
+# VUMC Bioinformatics
 
