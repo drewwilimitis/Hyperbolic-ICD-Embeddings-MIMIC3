@@ -8,10 +8,12 @@ I first start exploring embedding methods for representation learning of ICD-9 c
 - There's also Human Phenotype Ontology given here: [HPO](https://hpo.jax.org/app/download/ontology)
 - The e-merge network is another valuable source: [eMERGE](https://emerge-network.org/phenotyping-cohort-discovery-using-ehr-data/)
 
-The following figure attempts to show the non-trivial way in which these can all be synthesized
+
 
 ![13073_2015_166_Fig2_HTML](https://user-images.githubusercontent.com/16658498/84840097-3b54ea80-b004-11ea-9001-5668cae44223.jpg)
 
+
+The following figure attempts to show the non-trivial way in which these can all be synthesized
 
 
 
