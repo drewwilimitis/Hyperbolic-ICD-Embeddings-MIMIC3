@@ -1,6 +1,9 @@
 # VUMC Bioinformatics: Brainstrom & Exploration
 ___
 
+                ![vandy](https://user-images.githubusercontent.com/16658498/84961493-15921900-b0ca-11ea-8f5f-89a9394549cf.png)
+
+
 I first start exploring embedding methods for representation learning of ICD-9 codes. There's a fairly disjointed set of other data sources at the moment, so I will restrict my analyis to just this ICD-9 data for now. These other sources of medical ontologies, drug codes, and computationally derived phenotypes are available below.
 
 
