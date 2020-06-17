@@ -1,4 +1,3 @@
-
 library(icd.data)
 df <- icd.data::icd9cm_hierarchy
 print(head(df, 10))
