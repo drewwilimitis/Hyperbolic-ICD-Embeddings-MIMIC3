@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 def dist_squared(x, y, axis=None):
     return np.sum((x - y)**2, axis=axis)
 
-def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, title=None, height=8, width=8,
-                  add_labels=False, label_dict=None, plot_frac=1, edge_frac=1, label_frac=0.001):
+def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, height=8, width=9, save=False,
+                      plot_frac=1, edge_frac=1, add_labels=False, label_dict=None, label_frac=0.001):
     # Note: parameter 'emb' expects data frame with node ids and coords
     emb.columns = ['node', 'x', 'y']
     n_classes = len(np.unique(labels))
@@ -30,16 +30,17 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, title=None, h
     emb_data = np.array(emb[emb.node != 'ICD-9_Diagnoses'].iloc[:, 1:3])
     for i in range(n_classes):
         plt.scatter(emb_data[(labels == i), 0], emb_data[(labels == i), 1], color = colors[i],
-                    alpha=0.8, edgecolors='black', linewidth=1, s=35, label=i)
+                    alpha=0.9, edgecolors='black', s=75, label=i)
     # plot central highest level node
-    center_coords = emb[emb.node == 'ICD-9_Diagnoses'].iloc[:, 1:3].values
-    plt.scatter(center_coords[0][0], center_coords[0][1], s=50, c='black')
+    center_coords = emb[emb.node == 'ICD-9_Diagnoses'].iloc[:, 1:3].values[0]
+    label_dict['ICD-9_Diagnoses'] = center_coords
+    plt.scatter(center_coords[0], center_coords[1], s=70, c='black')
     
     # plot edges
     for i in range(int(len(edge_list) * edge_frac)):
         x1 = emb.loc[(emb.iloc[:, 0] == edge_list[i][0]), ['x', 'y']].values[0]
         x2 = emb.loc[(emb.node == edge_list[i][1]), ['x', 'y']].values[0]
-        _ = plt.plot([x1[0], x2[0]], [x1[1], x2[1]], '--', c='black', linewidth=1, alpha=0.35)
+        _ = plt.plot([x1[0], x2[0]], [x1[1], x2[1]], '--', c='black', linewidth=1, alpha=0.55)
     
     # add labels to embeddings,
     if add_labels and label_dict != None:
@@ -55,18 +56,19 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, title=None, h
             if np.min(dist_squared(embed_vals[i], labeled_vals, axis=1)) < min_dist_2:
                 continue
             else:
-                props = dict(boxstyle='round', lw=2, edgecolor='black', alpha=0.35)
-                _ = ax.text(embed_vals[i][0], embed_vals[i][1]+0.02, s=keys[i].split('.')[0],
-                            size=10, fontsize=12, verticalalignment='top', bbox=props)
+                props = dict(boxstyle='round', lw=1, edgecolor='black', alpha=0.65)
+                _ = ax.text(embed_vals[i][0], embed_vals[i][1]+0.06, s=keys[i],
+                            size=10, fontsize=10, verticalalignment='top', bbox=props)
                 labeled_vals = np.vstack((labeled_vals, embed_vals[i]))
-    if title != None:
-        plt.suptitle('ICD-9: Poicare Embedding' + title, size=16);
+    plt.suptitle('ICD-9: Poicare Embedding', size=20)
     leg_handles, leg_labels = ax.get_legend_handles_labels()
     if legend_headers != None:
         # get display labels and put legend to the right of the current axis
         new_labels = [legend_headers[int(l)] for l in leg_labels]
         box = ax.get_position()
-        ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
-        ax.legend(leg_handles, new_labels, loc='center left', bbox_to_anchor=(1.2, 0.5), fontsize=14,
+        ax.set_position([box.x0, box.y0, box.width * 0.75, box.height])
+        ax.legend(leg_handles, new_labels, loc='center left', bbox_to_anchor=(1.05, 0.5), fontsize=14,
                   frameon=True, edgecolor='black', fancybox=True, framealpha=1, shadow=True, borderpad=1)
+    if save:
+        plt.savefig('images/poincare_icd9.png')
     plt.show();
