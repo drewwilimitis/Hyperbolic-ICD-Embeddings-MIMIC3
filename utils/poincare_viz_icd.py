@@ -27,11 +27,15 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, title=None, h
         colors = cmap(np.linspace(0, 1, n_classes))
 
     # plot embedding coordinates
-    emb_data = np.array(emb.iloc[:, 1:3])
+    emb_data = np.array(emb[emb.node != 'ICD-9_Diagnoses'].iloc[:, 1:3])
     for i in range(n_classes):
-        plt.scatter(emb_data[(labels == i), 0], emb_data[(labels == i), 1],
-                             color = colors[i], alpha=0.8, edgecolors='black', linewidth=1, s=35)
-    # plot edges,
+        plt.scatter(emb_data[(labels == i), 0], emb_data[(labels == i), 1], color = colors[i],
+                    alpha=0.8, edgecolors='black', linewidth=1, s=35, label=i)
+    # plot central highest level node
+    center_coords = emb[emb.node == 'ICD-9_Diagnoses'].iloc[:, 1:3].values
+    plt.scatter(center_coords[0][0], center_coords[0][1], s=50, c='black')
+    
+    # plot edges
     for i in range(int(len(edge_list) * edge_frac)):
         x1 = emb.loc[(emb.iloc[:, 0] == edge_list[i][0]), ['x', 'y']].values[0]
         x2 = emb.loc[(emb.node == edge_list[i][1]), ['x', 'y']].values[0]
@@ -57,6 +61,12 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, title=None, h
                 labeled_vals = np.vstack((labeled_vals, embed_vals[i]))
     if title != None:
         plt.suptitle('ICD-9: Poicare Embedding' + title, size=16);
+    leg_handles, leg_labels = ax.get_legend_handles_labels()
     if legend_headers != None:
-        plt.legend(loc='best')
+        # get display labels and put legend to the right of the current axis
+        new_labels = [legend_headers[int(l)] for l in leg_labels]
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+        ax.legend(leg_handles, new_labels, loc='center left', bbox_to_anchor=(1.2, 0.5), fontsize=14,
+                  frameon=True, edgecolor='black', fancybox=True, framealpha=1, shadow=True, borderpad=1)
     plt.show();
