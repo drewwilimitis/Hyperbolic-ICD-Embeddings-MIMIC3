@@ -6,7 +6,7 @@ def dist_squared(x, y, axis=None):
     return np.sum((x - y)**2, axis=axis)
 
 def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, height=8, width=9, save=False,
-                      plot_frac=1, edge_frac=1, add_labels=False, label_dict=None, label_frac=0.001):
+                      plot_frac=1, edge_frac=1, add_labels=False, label_dict=None, title='Poincare Model', label_frac=0.001):
     # Note: parameter 'emb' expects data frame with node ids and coords
     emb.columns = ['node', 'x', 'y']
     n_classes = len(np.unique(labels))
@@ -60,7 +60,7 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, height=8, wid
                 _ = ax.text(embed_vals[i][0], embed_vals[i][1]+0.06, s=keys[i],
                             size=10, fontsize=10, verticalalignment='top', bbox=props)
                 labeled_vals = np.vstack((labeled_vals, embed_vals[i]))
-    plt.suptitle('ICD-9: Poicare Embedding', size=20)
+    plt.suptitle('Hyperbolic ICD-9 Embedding: ' + title, size=20)
     leg_handles, leg_labels = ax.get_legend_handles_labels()
     if legend_headers != None:
         # get display labels and put legend to the right of the current axis
@@ -70,5 +70,5 @@ def plot_poincare_icd(emb, labels, edge_list, legend_headers=None, height=8, wid
         ax.legend(leg_handles, new_labels, loc='center left', bbox_to_anchor=(1.05, 0.5), fontsize=14,
                   frameon=True, edgecolor='black', fancybox=True, framealpha=1, shadow=True, borderpad=1)
     if save:
-        plt.savefig('images/poincare_icd9.png')
+        plt.savefig('images/' + title.replace(' ', '_') + '.png')
     plt.show();
