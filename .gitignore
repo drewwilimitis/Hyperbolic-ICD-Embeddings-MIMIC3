@@ -5,3 +5,6 @@
 /research_papers/
 utils/__pycache__/poincare_viz_icd.cpython-37.pyc
 appendix.ipynb
+*.pyc*
+/icd9/
+
