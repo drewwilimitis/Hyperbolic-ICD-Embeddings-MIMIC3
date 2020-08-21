@@ -7,4 +7,7 @@ utils/__pycache__/poincare_viz_icd.cpython-37.pyc
 appendix.ipynb
 *.pyc*
 /icd9/
-
+/cui2vec/
+.DS_Store
+.RData
+.Rhistory
