@@ -1,22 +1,22 @@
-# VUMC Bioinformatics: Brainstrom & Exploration
+# Hyperbolic Embeddings of ICD Diagnostic Codes with Real Hospital Data (MIMIC-3)
 ___
 
-![vandy](https://user-images.githubusercontent.com/16658498/84961493-15921900-b0ca-11ea-8f5f-89a9394549cf.png)
+![icd_embed](https://user-images.githubusercontent.com/16658498/200984740-0b98a292-08d8-4c4e-b419-ef6328a65cdc.png)
+
+I test novel Hyperbolic embedding methods to learn representations of ICD-9 codes using co-occurrences in real hospital data.
+
+I evaluate the performance of these embedding approaches in terms of their ability to group similar diagnoses together.
+
+Finally, I use exploratory data analysis to understand the structure of the MIMIC-3 dataset and prepare the data for predicting mortality.
+
+I briefly test whether features based on these ICD embeddings are useful predictors of in-hospital mortality.
 
 
-I first start exploring embedding methods for representation learning of ICD-9 codes. There's a fairly disjointed set of other data sources at the moment, so I will restrict my analyis to just this ICD-9 data for now. These other sources of medical ontologies, drug codes, and computationally derived phenotypes are available below.
-
-
-- The Unified Medical Language System is available here: [UMLS](https://www.nlm.nih.gov/research/umls/)
-- There's also Human Phenotype Ontology given here: [HPO](https://hpo.jax.org/app/download/ontology)
-- The e-merge network is another valuable source: [eMERGE](https://emerge-network.org/phenotyping-cohort-discovery-using-ehr-data/)
 
 
 
-The following figure attempts to show the non-trivial way in which these can all be synthesized
 
 
-![13073_2015_166_Fig2_HTML](https://user-images.githubusercontent.com/16658498/84840097-3b54ea80-b004-11ea-9001-5668cae44223.jpg)
 
 
 
